@@ -2,6 +2,12 @@
 #include <cmath>
 using namespace std;
 
+void headerUtama() {
+	cout << "-----------------------" << endl;
+	cout << "| KALKULATOR REKURSIF |" << endl;
+	cout << "-----------------------" << endl << endl;
+}
+
 int rekX(int n) {
 
 	if (n > 1){
@@ -37,12 +43,11 @@ int main() {
 	int x, p;
 	char menu, yt;
 
+	headerUtama();
 awal:
-	cout << "-----------------------" << endl;
-	cout << "| KALKULATOR REKURSIF |" << endl;
-	cout << "-----------------------" << endl << endl;
 	cout << "A. Faktorial Rekursif" << endl;
 	cout << "B. Penjumlahan Rekursif" << endl;
+	cout << "C. Keluar" << endl;
 	cout << endl << "Pilihan anda: ";
 	cin >> menu;
 
