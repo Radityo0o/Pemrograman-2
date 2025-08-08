@@ -4,7 +4,7 @@
 using namespace std;
 
 const double g = 10.0;
-const double pi = 3.14159265359;
+const double pi = 3.14;
 
 // Fungsi menghitung HMax dan XMax
 double hmax(double v0, double a);
