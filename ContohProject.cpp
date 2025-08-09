@@ -3,10 +3,10 @@
 #include <string>
 #include <fstream>
 #include <ctime>
+#include <iomanip>
 
 using namespace std;
 
-// Fungsi untuk mendapatkan tanggal dan waktu saat ini
 string getCurrentDateTime() {
     time_t now = time(0);
     tm* ltm = localtime(&now);
@@ -22,9 +22,8 @@ string getCurrentDateTime() {
 }
 
 int main() {
-    // --- Bagian Login ---
     string password;
-    cout << "Selamat Datang di Aplikasi Pemesanan Tiket Kereta Api" << endl;
+    cout << "Selamat Datang di Aplikasi Pemesanan Hotel" << endl;
     while (true) {
         cout << "Masukkan password: ";
         cin >> password;
@@ -39,7 +38,7 @@ int main() {
 
     // --- Bagian Input Data ---
     string namaPemesan, kodePemesan;
-    int jumlahKursi;
+    int jumlahMalam;
 
     cout << "\n--- Input Data Pemesanan ---" << endl;
     cin.ignore(); // Membersihkan buffer input
@@ -47,130 +46,88 @@ int main() {
     getline(cin, namaPemesan);
     cout << "Kode Pemesan: ";
     getline(cin, kodePemesan);
-    cout << "Jumlah Kursi yang Dipesan: ";
-    cin >> jumlahKursi;
+    cout << "Jumlah Malam yang Dipesan: ";
+    cin >> jumlahMalam;
 
-    // --- Bagian Pemilihan Kereta dan Tujuan ---
-    int jenisKereta, tujuan;
-    double hargaTiket = 0.0;
-    string namaKereta, namaTujuan;
+    // --- Bagian Pemilihan Jenis Kamar ---
+    int jenisKamar;
+    double hargaKamar = 0.0;
+    string namaKamar;
 
-    cout << "\n--- Pilih Jenis Kereta ---" << endl;
-    cout << "1. Ekonomi" << endl;
-    cout << "2. Bisnis" << endl;
-    cout << "3. Eksekutif" << endl;
+    cout << "\n--- Pilih Jenis Kamar ---" << endl;
+    cout << "1. Standar" << endl;
+    cout << "2. Superior" << endl;
+    cout << "3. Suite" << endl;
     cout << "Pilihan Anda: ";
-    cin >> jenisKereta;
-
-    cout << "\n--- Pilih Tujuan ---" << endl;
-    cout << "1. Jakarta" << endl;
-    cout << "2. Surabaya" << endl;
-    cout << "3. Bandung" << endl;
-    cout << "Pilihan Anda: ";
-    cin >> tujuan;
+    cin >> jenisKamar;
 
     // Menentukan harga berdasarkan pilihan
-    if (jenisKereta == 1) {
-        namaKereta = "Ekonomi";
-        if (tujuan == 1) {
-            namaTujuan = "Jakarta";
-            hargaTiket = 150000;
-        }
-        else if (tujuan == 2) {
-            namaTujuan = "Surabaya";
-            hargaTiket = 200000;
-        }
-        else if (tujuan == 3) {
-            namaTujuan = "Bandung";
-            hargaTiket = 120000;
-        }
+    if (jenisKamar == 1) {
+        namaKamar = "Standar";
+        hargaKamar = 500000;
     }
-    else if (jenisKereta == 2) {
-        namaKereta = "Bisnis";
-        if (tujuan == 1) {
-            namaTujuan = "Jakarta";
-            hargaTiket = 250000;
-        }
-        else if (tujuan == 2) {
-            namaTujuan = "Surabaya";
-            hargaTiket = 300000;
-        }
-        else if (tujuan == 3) {
-            namaTujuan = "Bandung";
-            hargaTiket = 220000;
-        }
+    else if (jenisKamar == 2) {
+        namaKamar = "Superior";
+        hargaKamar = 800000;
     }
-    else if (jenisKereta == 3) {
-        namaKereta = "Eksekutif";
-        if (tujuan == 1) {
-            namaTujuan = "Jakarta";
-            hargaTiket = 400000;
-        }
-        else if (tujuan == 2) {
-            namaTujuan = "Surabaya";
-            hargaTiket = 450000;
-        }
-        else if (tujuan == 3) {
-            namaTujuan = "Bandung";
-            hargaTiket = 350000;
-        }
+    else if (jenisKamar == 3) {
+        namaKamar = "Suite";
+        hargaKamar = 1200000;
     }
 
     // --- Bagian Perhitungan dan Output ---
-    double totalBayar = hargaTiket * jumlahKursi;
+    double totalBayar = hargaKamar * jumlahMalam;
 
     cout << "\n--- Ringkasan Pemesanan ---" << endl;
     cout << "Nama Pemesan: " << namaPemesan << endl;
     cout << "Kode Pemesan: " << kodePemesan << endl;
-    cout << "Jenis Kereta: " << namaKereta << endl;
-    cout << "Tujuan: " << namaTujuan << endl;
-    cout << "Harga Tiket per Kursi: Rp" << hargaTiket << endl;
-    cout << "Jumlah Kursi: " << jumlahKursi << endl;
+    cout << "Jenis Kamar: " << namaKamar << endl;
+    cout << "Harga per Malam: Rp" << fixed << setprecision(0) <<hargaKamar << endl;
+    cout << "Jumlah Malam: " << jumlahMalam << endl;
     cout << "---------------------------------" << endl;
-    cout << "Total Pembayaran: Rp" << totalBayar << endl;
+    cout << "Total Pembayaran: Rp" << fixed << setprecision(0) <<totalBayar << endl;
 
     // --- Bagian Cetak File ---
     string currentDateTime = getCurrentDateTime();
     cout << "\nSedang mencetak nota dan stock..." << endl;
 
     // Cetak Nota
-    ofstream notaFile("nota.txt");
+    ofstream notaFile("nota_hotel.txt");
     if (notaFile.is_open()) {
-        notaFile << "========== NOTA PEMESANAN ==========" << endl;
+        notaFile << "========== NOTA PEMESANAN HOTEL ==========" << endl;
         notaFile << "Tanggal & Waktu: " << currentDateTime << endl;
-        notaFile << "------------------------------------" << endl;
+        notaFile << "------------------------------------------" << endl;
         notaFile << "Nama Pemesan: " << namaPemesan << endl;
         notaFile << "Kode Pemesan: " << kodePemesan << endl;
-        notaFile << "Jenis Kereta: " << namaKereta << endl;
-        notaFile << "Tujuan: " << namaTujuan << endl;
-        notaFile << "Jumlah Kursi: " << jumlahKursi << endl;
-        notaFile << "Harga Tiket: Rp" << hargaTiket << endl;
-        notaFile << "------------------------------------" << endl;
+        notaFile << "Jenis Kamar: " << namaKamar << endl;
+        notaFile << "Jumlah Malam: " << jumlahMalam << endl;
+        notaFile << "Harga Kamar per Malam: Rp" << hargaKamar << endl;
+        notaFile << "------------------------------------------" << endl;
         notaFile << "Total Pembayaran: Rp" << totalBayar << endl;
-        notaFile << "====================================" << endl;
+        notaFile << "==========================================" << endl;
         notaFile.close();
-        cout << "Nota berhasil dicetak ke file nota.txt" << endl;
+        cout << "Nota berhasil dicetak ke file nota_hotel.txt" << endl;
     }
     else {
-        cout << "Gagal membuka file nota.txt" << endl;
+        cout << "Gagal membuka file nota_hotel.txt" << endl;
     }
 
     // Cetak Stock
-    ofstream stockFile("stock.txt");
+    ofstream stockFile("stock_hotel.txt");
     if (stockFile.is_open()) {
-        stockFile << "========== STOCK TIKET ==========" << endl;
+        stockFile << "========== STOCK KAMAR ==========" << endl;
         stockFile << "Tanggal & Waktu: " << currentDateTime << endl;
         stockFile << "---------------------------------" << endl;
         stockFile << "Simulasi stock yang tersedia:" << endl;
-        stockFile << "- Tiket Ekonomi: 100 kursi" << endl;
-        stockFile << "- Tiket Bisnis: 50 kursi" << endl;
-        stockFile << "- Tiket Eksekutif: 30 kursi" << endl;
+        stockFile << "- Kamar Standar: 20 kamar" << endl;
+        stockFile << "- Kamar Superior: 10 kamar" << endl;
+        stockFile << "- Kamar Suite: 5 kamar" << endl;
         stockFile << "=================================" << endl;
         stockFile.close();
-        cout << "Stock berhasil dicetak ke file stock.txt" << endl;
+        cout << "Stock berhasil dicetak ke file stock_hotel.txt" << endl;
     }
     else {
-        cout << "Gagal membuka file stock.txt" << endl;
+        cout << "Gagal membuka file stock_hotel.txt" << endl;
     }
 
     return 0;
