@@ -10,15 +10,15 @@ int main()
     Kelass kelas;
 
     string passwordLogin, opsi;
-
-    cout << "Aplikasi Pemesan Hotel" << endl;
+    kelas.clearScreen();
+    cout << "Booking Kamar Hotel" << endl;
     while (true)
     {
         cout << "Password: ";
         cin >> passwordLogin;
         if (passwordLogin == "admin123")
         {
-            cout << "Login berhasil!" << endl;
+        cout << "Login berhasil!" << endl;
             break;
         } 
         else
@@ -36,9 +36,10 @@ awal:
     cout << "\n-> ";
     cin >> opsi;
 
+    
     if (opsi == "1")
     {
-        kelas.pesanTiket();
+        kelas.pesanTiket(); 
     }
     else if (opsi == "2")
     {
