@@ -9,14 +9,16 @@ int main()
 {
     Kelass kelas;
 
-    string passwordLogin, opsi;
+    string usernameLogin,passwordLogin, opsi;
     kelas.clearScreen();
-    cout << "Booking Kamar Hotel" << endl;
+    cout << "=== Booking Kamar Hotel ===" << endl;
     while (true)
     {
+        cout << "Username: ";
+        cin >> usernameLogin;
         cout << "Password: ";
         cin >> passwordLogin;
-        if (passwordLogin == "admin123")
+        if (usernameLogin == "admin" && passwordLogin == "admin123")
         {
             cout << "Login berhasil!" << endl;
             break;
@@ -42,16 +44,14 @@ int main()
         }
         else if (opsi == "2")
         {
-            cout << "Program Selesai!" << endl;
+            cout << "Program Selesai!";
             return 0;
         }
         else
         {
-            cout << "Invalid Input!" << endl;
+            cout << "Invalid Input!";
+            kelas.enterToContinue();
         }
-
-
-        kelas.enterToContinue();
     }
     return 0;
 }
