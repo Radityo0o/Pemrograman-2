@@ -1,12 +1,14 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "kelas.h"
 #include <iostream>
+#include <string>
 #include <iomanip>
 #include <fstream>
 #include <ctime>
 using namespace std;
 
-string getCurrentDateTime(){
-  time_t now = time(0);
+string getCurrentDateTime() {
+    time_t now = time(0);
     tm* ltm = localtime(&now);
 
     string date_time = to_string(1900 + ltm->tm_year) + "-" +
@@ -17,36 +19,36 @@ string getCurrentDateTime(){
         to_string(ltm->tm_sec);
 
     return date_time;
-  }
-
-
-void Kelass::clearScreen(){
-    // Untuk Windows
-    #if defined(_WIN32) || defined(_WIN64)
-        system("cls");
-    // Untuk Linux/Mac
-    #elif defined(__linux__) || defined(__APPLE__)
-        system("clear");
-    #endif
 }
 
-void Kelass::enterToContinue(){
+
+void Kelass::clearScreen() {
+    // Untuk Windows
+#if defined(_WIN32) || defined(_WIN64)
+    system("cls");
+    // Untuk Linux/Mac
+#elif defined(__linux__) || defined(__APPLE__)
+    system("clear");
+#endif
+}
+
+void Kelass::enterToContinue() {
     cout << "\nTekan Enter untuk kembali ke menu utama...";
     cin.ignore();
     cin.get();
 }
 
-void Kelass::headerUtama(){
-    cout << "Pemesan Tiket Hotel" << endl;
+void Kelass::headerUtama() {
+    cout << "Pemesan Kamar Hotel" << endl;
     cout << "-------------------" << endl;
 }
 
-void Kelass::menuUtama(){
+void Kelass::menuUtama() {
     cout << "1. Pesan Tiket" << endl;
     cout << "2. Keluar" << endl;
 }
 
-void Kelass::pesanTiket(){
+void Kelass::pesanTiket() {
     clearScreen();
     //Bagian Input Data
     string namaPemesan, kodePemesan;
@@ -110,32 +112,33 @@ void Kelass::pesanTiket(){
 
     //Bagian Cetak 
     char opsiCetak;
-    cout << "Cetak Kode Booking? (Y/N): "; 
+    cout << "Cetak Kode Booking? (Y/N): ";
     cin >> opsiCetak;
 
     if (opsiCetak == 'Y' || opsiCetak == 'y') {
-      ofstream notaFile("nota_hotel.txt");
+        string currentDateTime = getCurrentDateTime();
+        ofstream notaFile("nota_hotel.txt");
         if (notaFile.is_open()) {
-          notaFile << "========== NOTA PEMESANAN HOTEL ==========" << endl;
-          //notaFile << "Tanggal & Waktu: " << currentDateTime << endl;
-          notaFile << "------------------------------------------" << endl;
-          notaFile << "Nama Pemesan\t: " << namaPemesan << endl;
-          notaFile << "Kode Pemesan\t: " << kodePemesan << endl;
-          notaFile << "Jenis Kamar\t: " << namaKamar << endl;
-          notaFile << "Jumlah Malam\t: " << jumlahMalam << endl;
-          notaFile << fixed << setprecision(0);
-          notaFile << "Harga/malam\t: Rp" << hargaKamar << endl;
-          notaFile << "------------------------------------------" << endl;
-          notaFile << "Total Pembayaran: Rp" << totalBayar << endl;
-          notaFile << "==========================================" << endl;
-          notaFile.close();
-          cout << "Nota berhasil dicetak ke file nota_hotel.txt" << endl;
+            notaFile << "========== NOTA PEMESANAN HOTEL ==========" << endl;
+            notaFile << "Tanggal & Waktu: " << currentDateTime << endl;
+            notaFile << "------------------------------------------" << endl;
+            notaFile << "Nama Pemesan\t: " << namaPemesan << endl;
+            notaFile << "Kode Pemesan\t: " << kodePemesan << endl;
+            notaFile << "Jenis Kamar\t: " << namaKamar << endl;
+            notaFile << "Jumlah Malam\t: " << jumlahMalam << endl;
+            notaFile << fixed << setprecision(0);
+            notaFile << "Harga/malam\t: Rp" << hargaKamar << endl;
+            notaFile << "------------------------------------------" << endl;
+            notaFile << "Total Pembayaran: Rp" << totalBayar << endl;
+            notaFile << "==========================================" << endl;
+            notaFile.close();
+            cout << "Nota berhasil dicetak ke file nota_hotel.txt" << endl;
         }
         else {
-          cout << "Gagal membuka file nota_hotel.txt" << endl;
-         } 
-    } 
+            cout << "Gagal membuka file nota_hotel.txt" << endl;
+        }
+    }
     else if (opsiCetak == 'N' || opsiCetak == 'n') {
-      enterToContinue();
+        enterToContinue();
     }
 }
