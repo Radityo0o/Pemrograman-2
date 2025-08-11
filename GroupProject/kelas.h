@@ -1,10 +1,13 @@
 #pragma once
+#include <string>
+using namespace std;
 class Kelass {
-    public:
+public:
     void clearScreen();
     void enterToContinue();
-    void loginPage();
     void headerUtama();
     void menuUtama();
     void pesanTiket();
+    string getCurrentDateTime();
+    bool isValidFutureDate(const string& date);
 };
