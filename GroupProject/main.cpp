@@ -1,57 +1,58 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "kelas.h"
 #include <iostream>
-#include <string>
-#include <ctime>
-#include <iomanip>
 using namespace std;
 
-int main()
-{
+int main() {
     Kelass kelas;
 
-    string usernameLogin,passwordLogin, opsi;
+    // Login system
+    string username, password;
     kelas.clearScreen();
-    cout << "=== Booking Kamar Hotel ===" << endl;
-    while (true)
-    {
-        cout << "Username: ";
-        cin >> usernameLogin;
-        cout << "Password: ";
-        cin >> passwordLogin;
-        if (usernameLogin == "admin" && passwordLogin == "admin123")
-        {
-            cout << "Login berhasil!" << endl;
-            break;
-        }
-        else
-        {
-            cout << "Password salah, coba lagi!" << endl;
-        }
+    cout << "=== Login Sistem ===" << endl;
+    cout << "Username: ";
+    cin >> username;
+    cout << "Password: ";
+    cin >> password;
+
+    if (username != "admin" || password != "admin123") {
+        cout << "Login gagal!" << endl;
+        return 0;
     }
 
-    while (true)
-    {
+    // Load existing data
+    kelas.loadFromFile();
+
+    // Main menu
+    while (true) {
         kelas.clearScreen();
         kelas.headerUtama();
         kelas.menuUtama();
-        cout << "\n-> ";
-        cin >> opsi;
+        cout << "Pilih menu: ";
 
+        int choice;
+        cin >> choice;
 
-        if (opsi == "1")
-        {
+        switch (choice) {
+        case 1:
             kelas.pesanTiket();
-        }
-        else if (opsi == "2")
-        {
-            cout << "Program Selesai!";
+            break;
+        case 2:
             return 0;
-        }
-        else
-        {
-            cout << "Invalid Input!";
+        case 3:
+            kelas.readBookings();
+            break;
+        case 4:
+            kelas.updateBooking();
+            break;
+        case 5:
+            kelas.deleteBooking();
+            break;
+        default:
+            cout << "Pilihan tidak valid!" << endl;
             kelas.enterToContinue();
         }
     }
+
     return 0;
 }
